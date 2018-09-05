@@ -45,13 +45,17 @@ module App = {
     "hostname": string,
     "fresh": bool,
     "stale": bool,
-    "socket": string,
+    "socket": string, /* Socket object */
     "protocol": string,
     "secure": bool,
     "ip": string,
     "ips": array(string),
     "subdomains": array(string),
     [@bs.meth] "is": array(string) => string,
+    [@bs.meth] "accepts": array(string) => unknownContent,
+    [@bs.meth] "acceptsCharsets": array(string) => unknownContent,
+    [@bs.meth] "acceptsEncodings": array(string) => unknownContent,
+    [@bs.meth] "acceptsLanguages": array(string) => unknownContent,
     [@bs.meth] "get": string => string
   };
 
@@ -67,7 +71,7 @@ module App = {
     [@bs.meth] "attachment": string => unit,
     [@bs.meth] "set": string => string => unit,
     [@bs.meth] "append": string => array(string) => unit,
-    [@bs.meth] "remove": unit => unit
+    [@bs.meth] "remove": string => unit
   };
 
   type ctx('body) = {.

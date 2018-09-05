@@ -8,13 +8,13 @@ let middleware = (_, next) => {
   next();
 };
 
-let opts: Route.options = ref([]);
+let opts: Route.options = [||];
 
 App.use(app, middleware);
 App.use(app, 
-  Route.get(route, "/", (ctx, next) => {
-    ctx##body #= "Huh";
-    next();
+  Route.get(route, "/:haloumi", (ctx, param) => {
+    ctx##body #= param;
+    Js.log(param);
   }, ~opts=opts)
 );
 

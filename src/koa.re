@@ -116,7 +116,7 @@ module App = {
 
   [@bs.module] [@bs.new] external make : unit => t = "koa";
   [@bs.send] external callback : t => t = "callback";
-  [@bs.send] external use : t => middleware('a) => unit = "use";
+  [@bs.send] external use : t => middleware('a) => 'b = "use";
   [@bs.send] external listen_ :
     t =>
     int =>

@@ -11,10 +11,9 @@ let middleware = (_, next) => {
 let opts: Route.options = [||];
 
 App.use(app, middleware);
-App.use(app, 
+App.use(app,
   Route.get(route, "/:haloumi", (ctx, param) => {
     ctx##body #= param;
-    Js.log(param);
   }, ~opts=opts)
 );
 

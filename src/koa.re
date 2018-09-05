@@ -131,9 +131,9 @@ module App = {
 module Util = {
   type t('a) = 'a;
 
-  [@bs.get] external get_method : t('a) => string = "method";
-  [@bs.set] external set_method : t('a) => method_ => unit = "method";
-  [@bs.get] external get_type : t('a) => string = "type";
+  [@bs.get] external getMethod_ : t('a) => string = "method";
+  [@bs.set] external setMethod_ : t('a) => method_ => unit = "method";
+  [@bs.get] external getType_ : t('a) => string = "type";
 
   let method = fun
     | "GET" => Get
@@ -146,7 +146,7 @@ module Util = {
     | "CONNECT" => Connect
     | s => failwith ({j|Koa.Request.method_ Unexpected method: $s|j});
 
-  let getMethod = ctx => get_method(ctx) |> method;
-  let setMethod = (ctx, m) => set_method(ctx, m);
-  let getType = ctx => get_type(ctx);
+  let getMethod = ctx => getMethod_(ctx) |> method;
+  let setMethod = (ctx, m) => setMethod_(ctx, m);
+  let getType = ctx => getType_(ctx);
 };

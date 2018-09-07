@@ -74,7 +74,7 @@ module App = {
     [@bs.meth] "remove": string => unit
   };
 
-  type ctx('body) = {.
+  type ctx('body, 'ws) = {.
     "req": request,
     "res": response('body),
     "request": request,
@@ -108,15 +108,16 @@ module App = {
     [@bs.meth] "is": array(string) => string,
     [@bs.meth] "get": string => string,
     [@bs.meth] "inspect": unit => Js.Dict.t(string),
-    [@bs.meth] "toJSON": unit => Js.Json.t
+    [@bs.meth] "toJSON": unit => Js.Json.t,
+    "websockets": 'ws
   };
 
   type next = unit => Js.Promise.t(unit);
-  type middleware('a) = (ctx('a), next) => Js.Promise.t(unit);
+  type middleware('a, 'b) = (ctx('a, 'b), next) => Js.Promise.t(unit);
 
   [@bs.module] [@bs.new] external make : unit => t = "koa";
   [@bs.send] external callback : t => t = "callback";
-  [@bs.send] external use : t => middleware('a) => 'b = "use";
+  [@bs.send] external use : t => middleware('a, 'b) => 'c = "use";
   [@bs.send] external listen_ :
     t =>
     int =>

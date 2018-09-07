@@ -2,20 +2,12 @@ open Koa;
 open Route;
 open Websocket; 
 
-let app = Socket.make(App.make ());
+let app: Socket.ws(string) = Socket.make(App.make ());
 let route = Route.route;
 
-let middleware = (_, next) => {
+Socket.use(app##ws,(ctx, next) => {
+  ctx##websockets##send("Hood Nigga");
   next();
-};
+});
 
-let opts: Route.options = [||];
-
-App.use(app, middleware);
-App.use(app,
-  Route.get(route, "/:haloumi", (ctx, param) => {
-    ctx##body #= param;
-  }, ~opts=opts)
-);
-
-App.listen(app, ~port=3000, ~callback=_ => Js.log({j|Listening on port 3000|j}));
+Socket.listen(app, ~port=3000, ~callback=_ => Js.log({j|Listening on port 3000|j}));

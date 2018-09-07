@@ -3,15 +3,17 @@ open Koa;
 module Socket = {
   type t('a) = App.t;
 
-  type websocket = {. [@bs.meth] "send": string => unit };
+  type websocket('msg) = {.
+    [@bs.meth] "send": 'msg => unit
+  };
 
-  type ctx('a) = App.ctx('a, websocket);
-  type ws('a) = {. "ws": App.ctx('a, websocket) };
+  type ctx('a, 'b) = App.ctx('a, websocket('b));
+  type ws('a, 'b) = {. "ws": App.ctx('a, websocket('b)) };
 
-  [@bs.module] external make: t('a) => ws('a) = "koa-websocket";
-  [@bs.send] external use: ctx('a) => App.middleware('a, websocket) => unit = "use"; 
+  [@bs.module] external make: t('a) => ws('a, 'b) = "koa-websocket";
+  [@bs.send] external use: ctx('a, 'b) => App.middleware('a, websocket('b)) => unit = "use"; 
   [@bs.send] external listen_ :
-    ws('a) =>
+    ws('a, 'b) =>
     int =>
     string =>
     (Js.Null_undefined.t(Js.Exn.t) => unit) =>

@@ -2,7 +2,7 @@ open Koa;
 open Route;
 open Websocket; 
 
-let app: Socket.ws(string) = Socket.make(App.make ());
+let app: Socket.ws(string, string) = Socket.make(App.make ());
 let route = Route.route;
 
 Socket.use(app##ws,(ctx, next) => {

@@ -11,7 +11,7 @@ open KoaWebsocket;
 
 let app = App.make ();
 let route = Route.route;
-let ws: Socket.ctx(string, string /* message type */) = Socket.ws(app);
+let ws: Socket.ctx(string, string) = Socket.ws(app);
 
 let opts: Route.options = [||];
 

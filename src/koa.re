@@ -28,7 +28,7 @@ module Error = {
 };
 
 module App = {
-  type t;
+  type t('ws) = {. "ws": 'ws };
 
   type request = {.
     "header": string,
@@ -115,11 +115,11 @@ module App = {
   type next = unit => Js.Promise.t(unit);
   type middleware('a, 'b) = (ctx('a, 'b), next) => Js.Promise.t(unit);
 
-  [@bs.module] [@bs.new] external make : unit => t = "koa";
-  [@bs.send] external callback : t => t = "callback";
-  [@bs.send] external use : t => middleware('a, 'b) => 'c = "use";
+  [@bs.module] [@bs.new] external make : unit => t('a) = "koa";
+  [@bs.send] external callback : t('a) => t('a) = "callback";
+  [@bs.send] external use : t('a) => middleware('a, 'b) => 'c = "use";
   [@bs.send] external listen_ :
-    t =>
+    t('a) =>
     int =>
     string =>
     (Js.Null_undefined.t(Js.Exn.t) => unit) =>

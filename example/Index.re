@@ -1,5 +1,5 @@
 open Koa;
-open Route;
+open KoaRoute;
 
 let app = App.make ();
 let route = Route.route;

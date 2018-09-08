@@ -109,7 +109,7 @@ module App = {
     [@bs.meth] "get": string => string,
     [@bs.meth] "inspect": unit => Js.Dict.t(string),
     [@bs.meth] "toJSON": unit => Js.Json.t,
-    "websockets": 'ws
+    "websocket": 'ws
   };
 
   type next = unit => Js.Promise.t(unit);

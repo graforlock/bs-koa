@@ -2,7 +2,8 @@ open Koa;
 
 module Socket = {
   type websocket('msg) = {.
-    [@bs.meth] "send": 'msg => unit
+    [@bs.meth] "send": 'msg => unit,
+    [@bs.meth] "on": string => ('msg => unit) => unit
   };
 
   type t('a, 'b) = App.t(App.ctx('a, websocket('b)));

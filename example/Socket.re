@@ -20,7 +20,8 @@ App.use(app,
 );
 
 Socket.use(ws,(ctx, next) => {
-  ctx##websockets##send("Hello World!");
+  ctx##websocket##send("Hello World!");
+  ctx##websocket##on("message", msg => Js.log(msg) |> ignore)
   next();
 });
 

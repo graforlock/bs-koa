@@ -7,12 +7,12 @@ let route = Route.route;
 let ws: Socket.ctx(string, string) = Socket.ws(app);
 
 let opts: Route.options = [||];
-let middleware = (ctx, next) => {
+
+App.use(app, (ctx, next) => {
   ctx##body #= "Hello World!";
   next();
-};
+});
 
-App.use(app, middleware);
 App.use(app,
   Route.get(route, "/:hummus", (ctx, param) => {
     ctx##body #= param;

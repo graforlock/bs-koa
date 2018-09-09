@@ -20,13 +20,6 @@ type method_ =
   | Trace
   | Connect;
 
-module Error = {
-  type t;
-
-  [@bs.send] [@bs.return null_undefined_to_opt] external message : t => option(string) = "" ;
-  [@bs.send] [@bs.return null_undefined_to_opt] external name : t => option(string) = "";
-};
-
 module App = {
   type t('ws) = {. "ws": 'ws };
 

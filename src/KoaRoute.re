@@ -2,9 +2,15 @@ open Koa;
 
 module Route = {
   type t;
+
+  type unknown = 
+    | Next(App.next)
+    | Param(string)
+    | Undefined(Js.Types.undefined_val);
+
   type options = array(Js.Dict.t(string));
 
-  type middleware('a, 'b) = (App.ctx('a, 'b), string) => unit;
+  type middleware('a, 'b) = (App.ctx('a, 'b), unknown, unknown) => unit;
 
   [@bs.module] external route : t = "koa-route";
   [@bs.send] external all: (t, string, middleware('a, 'b), ~opts: options=?) => App.middleware('a, 'b) = "all";

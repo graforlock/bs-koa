@@ -13,16 +13,11 @@ App.use(app, (ctx, next) => {
   next();
 });
 
-App.use(app,
-  Route.get(route, "/:meal", (ctx, param) => {
-    ctx##body #= {j|Yummy $param!|j};
+Socket.use(ws,
+  Route.all(route, "/:halloumi", (ctx, param, _) => {
+    Socket.onMessage(ctx, msg => Js.log(msg) |> ignore);
+    Socket.send(ctx, {j| Yummy $param !|j});
   }, ~opts=opts)
 );
-
-Socket.use(ws, (ctx, next) => {
-  Socket.onMessage(ctx, msg => Js.log(msg) |> ignore);
-  Socket.send(ctx, "Hello world!");
-  next();
-});
 
 App.listen(app, ~port=3000, ~callback=_ => Js.log({j|Listening on port 3000|j}));

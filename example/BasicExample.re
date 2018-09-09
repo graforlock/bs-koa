@@ -12,7 +12,7 @@ let opts: Route.options = [||];
 
 App.use(app, middleware);
 App.use(app,
-  Route.get(route, "/:haloumi", (ctx, param) => {
+  Route.get(route, "/:haloumi", (ctx, param, _) => {
     ctx##body #= param;
   }, ~opts=opts)
 );

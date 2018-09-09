@@ -13,4 +13,7 @@ module Socket = {
   [@bs.send] external use: ctx('a, 'b) => App.middleware('a, websocket('b)) => unit = "use"; 
   
   let ws = app => make(app)##ws;
+  let on = (ctx, event, handler) => ctx##websocket##on(event, handler);
+  let onMessage = (ctx, handler) => ctx##websocket##on("message", handler);
+  let send = (ctx, msg) => ctx##websocket##send(msg);
 };

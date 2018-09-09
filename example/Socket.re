@@ -14,14 +14,14 @@ App.use(app, (ctx, next) => {
 });
 
 App.use(app,
-  Route.get(route, "/:hummus", (ctx, param) => {
-    ctx##body #= param;
+  Route.get(route, "/:meal", (ctx, param) => {
+    ctx##body #= {j|Yummy $param!|j};
   }, ~opts=opts)
 );
 
-Socket.use(ws,(ctx, next) => {
-  ctx##websocket##send("Hello World!");
-  ctx##websocket##on("message", msg => Js.log(msg) |> ignore)
+Socket.use(ws, (ctx, next) => {
+  Socket.onMessage(ctx, msg => Js.log(msg) |> ignore);
+  Socket.send(ctx, "Hello world!");
   next();
 });
 

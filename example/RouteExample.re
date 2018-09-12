@@ -2,7 +2,7 @@ open Koa;
 open KoaRoute;
 
 let app = App.make ();
-let route = Route.route;
+let route = route;
 
 let middleware = (_, next) => {
   next();
@@ -12,8 +12,11 @@ let opts: Route.options = [||];
 
 App.use(app, middleware);
 App.use(app,
-  Route.get(route, "/:haloumi", (ctx, param, _) => {
-    ctx##body #= param;
+  get(route, "/:haloumi", (ctx, param, next) => {
+    switch((param, next)) {
+    | (Param(param), Next(n)) => ctx##body #= param; next()
+    | _ => ignore
+    };
   }, ~opts=opts)
 );
 

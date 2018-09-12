@@ -1,5 +1,5 @@
 open Koa;
-open KoaRoute;
+open KoaRoute.Route;
 
 let app = App.make ();
 let route = route;
@@ -8,14 +8,14 @@ let middleware = (_, next) => {
   next();
 };
 
-let opts: Route.options = [||];
+let opts: options = [||];
 
 App.use(app, middleware);
 App.use(app,
   get(route, "/:haloumi", (ctx, param, next) => {
     switch((param, next)) {
-    | (Param(param), Next(n)) => ctx##body #= param; next()
-    | _ => ignore
+    | (Param(param), _) => ctx##body #= param;
+    | _ => ();
     };
   }, ~opts=opts)
 );

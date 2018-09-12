@@ -1,18 +1,19 @@
 open Koa;
-open KoaRoute;
+open KoaRoute.Route;
 
 let app = App.make ();
-let route = Route.route;
+let route = route;
 
 let middleware = (_, next) => {
   next();
 };
 
-let opts: Route.options = [||];
+let opts: options = [||];
 
 App.use(app, middleware);
 App.use(app,
-  Route.get(route, "/:haloumi", (ctx, param, _) => {
+  get(route, "/:haloumi", (ctx, param, _) => {
+    let Param(param) = param;
     ctx##body #= param;
   }, ~opts=opts)
 );
